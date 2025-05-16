@@ -75,7 +75,7 @@ class GUIApp:
         self.canvas = tk.Canvas(self.root, width=self.width, height=self.height)
         self.canvas.pack(fill="both", expand=True)
 
-        size = 500
+        size = 450
         self.buttons = [
             makeButton(self.canvas, "./img/forward_3d.png", "./img/forward_3d_dark.png",
                         self._calc_area(self.width/2, self.height/4, size)),
