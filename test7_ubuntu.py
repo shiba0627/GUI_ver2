@@ -69,7 +69,8 @@ class GUIApp:
     def __init__(self):
         self.root = tk.Tk()
         #self.root.state("zoomed")
-        self.root.geometry(f"{self.root.winfo_screenwidth()}x{self.root.winfo_screenheight()}+0+0")
+        #self.root.geometry(f"{self.root.winfo_screenwidth()}x{self.root.winfo_screenheight()}+0+0")
+        self.root.attributes("-zoomed", True) 
         self.root.update_idletasks()
         self.width = self.root.winfo_width()
         self.height = self.root.winfo_height()
