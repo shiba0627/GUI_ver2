@@ -1,3 +1,4 @@
+#メニュー画面を追記
 import tkinter as tk
 from PIL import Image, ImageTk
 import time
@@ -7,7 +8,8 @@ import pyautogui
 # ボタン生成クラス
 # ====================
 class makeButton:
-    def __init__(self, canvas, img_path, img_dark_path, area, stay_time):
+    def __init__(self, canvas, img_path, img_dark_path, area, stay_time,com):
+        self.com = com
         self.canvas = canvas
         width = int(area[2] - area[0])
         height = int(area[3] - area[1])
@@ -50,8 +52,8 @@ class makeButton:
                 percent = min(elapsed / self.stay_time * 100, 100)
                 self.draw_arc(cursor_x + 40, cursor_y, percent)
                 if elapsed >= self.stay_time:
-                    print("Button clicked!")
-                    pyautogui.click()
+                    print(f"{self.com} clicked!")
+                    #pyautogui.click()#使ってないけどクリック判定
                     self.canvas.itemconfig(self.image_id, image=self.img_dark)
                     self.clicked = True
                     if self.arc_id:
@@ -118,13 +120,13 @@ class ControlScreen(tk.Frame):
         time1 = 1
         self.buttons = [
             makeButton(self.canvas, "./img/forward_3d.png", "./img/forward_3d_dark.png",
-                       self._calc_area(width / 2, height / 4, size), time1),
+                       self._calc_area(width / 2, height / 4, size), time1,'w'),
             makeButton(self.canvas, "./img/ccw_3d.png", "./img/ccw_3d_dark.png",
-                       self._calc_area(width * 1 / 4, height * 2 / 5, size), time1),
+                       self._calc_area(width * 1 / 4, height * 2 / 5, size), time1,'a'),
             makeButton(self.canvas, "./img/stop_3d.png", "./img/stop_3d_dark.png",
-                       self._calc_area(width / 2, height * 2 / 3, size), time1),
+                       self._calc_area(width / 2, height * 2 / 3, size), time1,'s'),
             makeButton(self.canvas, "./img/cw_3d.png", "./img/cw_3d_dark.png",
-                       self._calc_area(width * 3 / 4, height * 2 / 5, size), time1),
+                       self._calc_area(width * 3 / 4, height * 2 / 5, size), time1,'d'),
         ]
 
         self.check_cursor()
