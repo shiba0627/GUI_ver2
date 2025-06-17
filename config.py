@@ -1,0 +1,6 @@
+CCW = './img/ccw_3d.png'
+CCW_DARK = './img/ccw_3d_dark.png'
+CW = './img/cw_3d.png'
+CW_DARK = './img/cw_3d_dark.png'
+FORWARD = './img/forward_3d.png'
+FORWARD_DARK = './img/forward_3d_dark.png'

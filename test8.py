@@ -97,10 +97,7 @@ class MenuScreen(tk.Frame):
         tk.Button(self, text="操作画面へ", font=("Arial", 20),
                   command=lambda: master.show_frame(ControlScreen)).pack(pady=20)
 
-
-# ====================
 # 操作画面（元の視線入力GUI）
-# ====================
 class ControlScreen(tk.Frame):
     def __init__(self, master):
         super().__init__(master)
@@ -111,7 +108,7 @@ class ControlScreen(tk.Frame):
         self.after(100, self.setup_buttons)
 
         tk.Button(self, text="メニューへ戻る", font=("Arial", 15),
-                  command=lambda: master.show_frame(MenuScreen)).place(x=20, y=20)
+                    command=lambda: master.show_frame(MenuScreen)).place(x=20, y=20)
 
     def setup_buttons(self):
         width = self.winfo_width()
@@ -120,13 +117,13 @@ class ControlScreen(tk.Frame):
         time1 = 1
         self.buttons = [
             makeButton(self.canvas, "./img/forward_3d.png", "./img/forward_3d_dark.png",
-                       self._calc_area(width / 2, height / 4, size), time1,'w'),
+                        self._calc_area(width / 2, height / 4, size), time1,'w'),
             makeButton(self.canvas, "./img/ccw_3d.png", "./img/ccw_3d_dark.png",
-                       self._calc_area(width * 1 / 4, height * 2 / 5, size), time1,'a'),
+                        self._calc_area(width * 1 / 4, height * 2 / 5, size), time1,'a'),
             makeButton(self.canvas, "./img/stop_3d.png", "./img/stop_3d_dark.png",
-                       self._calc_area(width / 2, height * 2 / 3, size), time1,'s'),
+                        self._calc_area(width / 2, height * 2 / 3, size), time1,'s'),
             makeButton(self.canvas, "./img/cw_3d.png", "./img/cw_3d_dark.png",
-                       self._calc_area(width * 3 / 4, height * 2 / 5, size), time1,'d'),
+                        self._calc_area(width * 3 / 4, height * 2 / 5, size), time1,'d'),
         ]
 
         self.check_cursor()

@@ -1,4 +1,3 @@
-# cd C:\Users\tonegawa\program\mugui
 import tkinter as tk
 import time
 import pyautogui
@@ -14,12 +13,12 @@ class MyApp:
         self.clicked = False  # クリック済みのフラグ
 
         self.root.update_idletasks()#ウィンドウサイズ情報を更新
-        self.screen_width = self.root.winfo_width()#ウィンドウの幅
-        self.screen_height = self.root.winfo_height()#ウィンドウの高さ
+        self.screen_width = self.root.winfo_width()#ウィンドウの幅を取得
+        self.screen_height = self.root.winfo_height()#ウィンドウの高さを取得
 
-        area_width, area_height = (100,100)#ボタン１のサイズ
-        x1 = (self.screen_width - area_width) // 2#小数点以下切り捨ての除算, 左上X
-        y1 = (self.screen_height - area_height) // 2#左上Y
+        area_width, area_height = (200,200)#ボタン１のサイズ
+        x1 = self.screen_width  // 2#小数点以下切り捨ての除算, 左上X
+        y1 = self.screen_height // 2#左上Y
         x2 = x1 + area_width#右下X
         y2 = y1 + area_height#右下Y
         self.target_area = (x1, y1, x2, y2)#ボタン1領域
@@ -61,7 +60,7 @@ class MyApp:
 
                 if elapsed >= self.stay_time_required:#一定時間を超えたら
                     print("クリック！")
-                    pyautogui.click()#クリック判定
+                    #pyautogui.click()#クリック判定
                     self.canvas.itemconfig(self.rect_id, fill="red")#判定領域の色を赤に
                     self.clicked = True  # クリックフラグをTrueに
                     if self.arc_id:
