@@ -95,7 +95,7 @@ class MenuScreen(tk.Frame):
         super().__init__(master, bg="lightblue")
         tk.Label(self, text="メニュー画面", font=("Arial", 30), bg="lightblue").pack(pady=100)
         tk.Button(self, text="操作画面へ", font=("Arial", 20),
-                  command=lambda: master.show_frame(ControlScreen)).pack(pady=20)
+                    command=lambda: master.show_frame(ControlScreen)).pack(pady=20)
 
 # 操作画面（元の視線入力GUI）
 class ControlScreen(tk.Frame):
