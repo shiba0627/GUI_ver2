@@ -1,8 +1,38 @@
-CCW = './img/ccw_3d.png'
-CCW_DARK = './img/ccw_3d_dark.png'
-CW = './img/cw_3d.png'
-CW_DARK = './img/cw_3d_dark.png'
-FORWARD = './img/forward_3d.png'
-FORWARD_DARK = './img/forward_3d_dark.png'
-STOP = './img/stop_3d.png'
-STOP_DARK = './img/stop_3d_dark.png'
+#ファイルパス
+CCW = './img/new/ccw.png'
+CCW_LOCK = './img/new/ccw_lock.png'
+CW = './img/new/cw.png'
+CW_LOCK = './img/new/cw_lock.png'
+FORWARD = './img/new/forward.png'
+FORWARD_LOCK = './img/new/forward_lock.png'
+STOP = './img/new/stop.png'
+STOP_LOCK = './img/new/stop_lock.png'
+BACK = './img/new/back.png'
+BACK_LOCK = './img/new/back_lock.png'
+
+BACK_DARK = './img/new_ver2/back_dark.PNG'
+CCW_DARK = './img/new_ver2/ccw_dark.PNG'
+CW_DARK = './img/new_ver2/cw_dark.png'
+FORWARD_DARK = './img/new_ver2/forward_dark.png'
+STOP_DARK = './img/new_ver2/stop_dark.png'
+
+BACK_ATTENTION = './img/new_ver2/back_attention.png'
+CCW_ATTENTION = './img/new_ver2/ccw_attention.png'
+CW_ATTENTION = './img/new_ver2/cw_attention.png'
+FORWARD_ATTENTION = './img/new_ver2/forward_attention.png'
+STOP_ATTENTION = './img/new_ver2/stop_attention.png'
+
+BACK_ACTIVE = './img/new_ver2/back_active.png'
+CCW_ACTIVE = './img/new_ver2/ccw_active.png'
+CW_ACTIVE = './img/new_ver2/cw_active.png'
+FORWARD_ACTIVE = './img/new_ver2/forward_active.png'
+STOP_ACTIVE = './img/new_ver2/stop_active.png'
+
+#変数
+BUTTON_SIZE = 250
+HOVER_TIME = 1#滞留時間s
+ARC_RADIUS = 30
+
+#ソケット通信用
+SERVER_HOST = '127.0.0.1'
+SERVER_PORT = 12345

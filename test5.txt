@@ -64,7 +64,7 @@ class makeButton:
                         self.arc_id = None
         else:
             self.reset()
-            
+
 class GUIApp:
     def __init__(self):
         self.root = tk.Tk()
@@ -77,13 +77,13 @@ class GUIApp:
 
         size = 450
         self.buttons = [
-            makeButton(self.canvas, "./img/forward.png", "./img/forward_dark.png",
+            makeButton(self.canvas, "./img/forward_3d.png", "./img/forward_3d_dark.png",
                         self._calc_area(self.width/2, self.height/4, size)),
-            makeButton(self.canvas, "./img/ccw.png", "./img/ccw_dark.png",
+            makeButton(self.canvas, "./img/ccw_3d.png", "./img/ccw_3d_dark.png",
                         self._calc_area(self.width*1/4, self.height*2/5, size)),
-            makeButton(self.canvas, "./img/stop.png", "./img/stop_dark.png",
+            makeButton(self.canvas, "./img/stop_3d.png", "./img/stop_3d_dark.png",
                         self._calc_area(self.width/2, self.height*2/3, size)),
-            makeButton(self.canvas, "./img/cw.png", "./img/cw_dark.png",
+            makeButton(self.canvas, "./img/cw_3d.png", "./img/cw_3d_dark.png",
                         self._calc_area(self.width*3/4, self.height*2/5, size)),
         ]
 
