@@ -64,7 +64,7 @@ class makeButton:
             x - self.arc_radius, y - self.arc_radius,
             x + self.arc_radius, y + self.arc_radius,
             start = 90, extent=-angle, style = 'pieslice',
-            outline = 'black', fill = 'black'
+            outline = 'white', fill = 'black'
         )
 
     def update(self, cursor_x, cursor_y):
@@ -89,7 +89,7 @@ class makeButton:
             else:#滞留中かつ、滞留時間が一定以上でないなら
                 self.canvas.itemconfig(self.image_id, image = self.img_attention)
         else:#カーソルが領域外なら
-            self.reset()
+            self.reset()  
         return None
             
 
