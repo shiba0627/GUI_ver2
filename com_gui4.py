@@ -269,8 +269,8 @@ class GUIApp:
                 self.canvas.tag_raise("eg_stop_text")
             elif state == "stop":
                 print("停止信号を検出。")
-                self.active_button = 's'
-                self._send_command('s')
+                #self.active_button = 's'
+                #self._send_command('s')
         except queue.Empty:
             pass
         self.root.after(100, self._check_robot_state)
