@@ -19,6 +19,9 @@ from config import HOST, OBJECT_PORT, COMMAND_PORT, CONFIG_PORT, CONFIG_PATH, ST
 from config import CAM_ID_1, CAM_ID_2
 
 class BaseButton:
+    '''
+    ボタンの基底クラス
+    '''
     def __init__(self, canvas, img_path, active_path, lock_path, attention_path, area, cmd):
         self.canvas = canvas
         width, height = int(area[2] - area[0]), int(area[3] - area[1])
@@ -86,7 +89,9 @@ class BaseButton:
             return None, None
 
 class JoyButton(BaseButton):
-    # (変更なし)
+    '''
+    操作ボタンのクラス
+    '''
     def update(self, cursor_x, cursor_y, active_button, attention_button):
         if self.locked:
             image_to_show = self.img_lock
