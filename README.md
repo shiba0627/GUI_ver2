@@ -4,6 +4,8 @@
 ```bash
 # 仮想環境の作成
 python -m venv venv_gui 
+py -3.13 -m venv venv_gui #バージョン指定
+
 # コマンドプロンプトでアクティベート
 venv_gui\Scripts\activate.bat 
 # PowerShellでアクティベート
