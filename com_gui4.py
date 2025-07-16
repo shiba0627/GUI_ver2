@@ -1,3 +1,14 @@
+'''
+通信機能付きGUI
+ロボットの状態を受信し、UIを更新
+serverと接続, このコードはクライアント
+
+通信プロトコルは以下の通り
+1. 設定ファイルの送信
+2. 障害物情報の送信
+3. ロボット状態の送信
+4. コマンドの送信
+'''
 import os
 import tkinter as tk
 from PIL import Image, ImageTk
@@ -22,7 +33,16 @@ class BaseButton:
     '''
     ボタンの基底クラス
     '''
-    def __init__(self, canvas, img_path, active_path, lock_path, attention_path, area, cmd):
+    def __init__(self, canvas:tk.Canvas, img_path:str, active_path:str, lock_path:str, attention_path:str, area:tuple[float, float, float, float], cmd:str):
+        '''
+        canvas        : キャンバス
+        img_path      : デフォルト画像パス
+        active_path   : 選択中画像パス
+        lock_path     : ロック画像パス
+        attention_path: 滞留中画像パス
+        area          : ボタンの領域
+        cmd           : コマンド
+        '''
         self.canvas = canvas
         width, height = int(area[2] - area[0]), int(area[3] - area[1])
         
@@ -32,7 +52,7 @@ class BaseButton:
             self.img_attention = ImageTk.PhotoImage(Image.open(attention_path).resize((width, height)))
             self.img_lock = ImageTk.PhotoImage(Image.open(lock_path).resize((width, height)))
         except FileNotFoundError:
-            print(f"警告: 画像ファイルが見つかりません。'{img_path}' または関連ファイルを確認してください。")
+            print(f"画像ファイル読み込みエラー'{img_path}'が読み込めません")
             dummy_img = ImageTk.PhotoImage(Image.new('RGB', (width, height), 'gray'))
             self.img = self.img_active = self.img_attention = self.img_lock = dummy_img
         except Exception as e:
@@ -49,9 +69,17 @@ class BaseButton:
         self.image_id = self.canvas.create_image(area[0], area[1], image=self.img, anchor="nw")
 
     def draw_arc(self, x, y, percent):
-        if self.arc_id:
-            self.canvas.delete(self.arc_id)
-        angle = percent * 3.6
+        '''
+        アークを描画
+
+        Args:
+            x: アークの中心のx座標
+            y: アークの中心のy座標
+            percent: アークの長さのパーセント
+        '''
+        if self.arc_id:#アークが存在するなら
+            self.canvas.delete(self.arc_id)#アークを削除, 被らないように
+        angle = percent * 3.6#アークの角度を計算
         self.arc_id = self.canvas.create_arc(
             x - self.arc_radius, y - self.arc_radius, 
             x + self.arc_radius, y + self.arc_radius,
@@ -60,28 +88,41 @@ class BaseButton:
         )
 
     def _handle_hover(self, cursor_x, cursor_y):
-        if self.locked:
-            if self.arc_id:
+        '''
+        マウスカーソルの座標がボタン領域内部にあるかチェック
+        領域内部に入った時間をチェック, 一定以上ならactive, 一定以下ならattention
+
+        Args:
+            cursor_x: マウスカーソルのx座標
+            cursor_y: マウスカーソルのy座標
+
+        Returns:
+            attention, active
+            attention: 滞留中なら自分のコマンド, それ以外はNone
+            active: 選択状態なら自分のコマンド, それ以外はNone
+        '''
+        if self.locked:#ロック状態なら
+            if self.arc_id:#アークが存在するなら
                 self.canvas.delete(self.arc_id)
                 self.arc_id = None
             self.enter_time = None
             return None, None
 
         x1, y1, x2, y2 = self.area
-        if x1 <= cursor_x <= x2 and y1 <= cursor_y <= y2:
-            if self.enter_time is None:
+        if x1 <= cursor_x <= x2 and y1 <= cursor_y <= y2:#カーソルが領域内部にあるなら
+            if self.enter_time is None:#領域内部に入った瞬間の時刻を記録
                 self.enter_time = time.time()
-            elapsed = time.time() - self.enter_time
-            percent = min(elapsed / self.stay_time * 100, 100)
-            self.draw_arc(cursor_x + 40, cursor_y, percent)
-            if elapsed >= self.stay_time:
-                if self.arc_id:
-                    self.canvas.delete(self.arc_id)
+            elapsed = time.time() - self.enter_time#領域内部に入ってからの経過時間を計算
+            percent = min(elapsed / self.stay_time * 100, 100)#経過時間をパーセントに変換
+            self.draw_arc(cursor_x + 40, cursor_y, percent)#カーソルの右側にアークを描画
+            if elapsed >= self.stay_time:#経過時間が一定以上なら
+                if self.arc_id:#アークが存在するなら
+                    self.canvas.delete(self.arc_id)#アークを削除
                     self.arc_id = None
                 return self.my_cmd, self.my_cmd
             else:
                 return self.my_cmd, None
-        else:
+        else:#カーソルが領域外部なら
             self.enter_time = None
             if self.arc_id:
                 self.canvas.delete(self.arc_id)
@@ -93,14 +134,28 @@ class JoyButton(BaseButton):
     操作ボタンのクラス
     '''
     def update(self, cursor_x, cursor_y, active_button, attention_button):
-        if self.locked:
+        '''
+        ボタンの状態を管理
+
+        Args:
+            cursor_x: マウスカーソルのx座標
+            cursor_y: マウスカーソルのy座標
+            active_button: 選択中ボタンのコマンド
+            attention_button: 滞留中ボタンのコマンド
+
+        Returns:
+            attention, active
+            attention: 滞留中なら自分のコマンド, それ以外はNone
+            active: 選択状態なら自分のコマンド, それ以外はNone
+        '''
+        if self.locked:#最優先でロック状態かチェック
             image_to_show = self.img_lock
-        elif self.my_cmd == active_button:
+        elif self.my_cmd == active_button:#自分が選択中なら
             image_to_show = self.img_active
-        elif self.my_cmd == attention_button:
+        elif self.my_cmd == attention_button:#自分が滞留中なら
             image_to_show = self.img_attention
         else:
-            image_to_show = self.img
+            image_to_show = self.img#それ以外はデフォルト画像
             
         self.canvas.itemconfig(self.image_id, image=image_to_show)
         return self._handle_hover(cursor_x, cursor_y)
