@@ -29,6 +29,16 @@ CW_ACTIVE      = './img/new_ver2/cw_active.png'
 FORWARD_ACTIVE = './img/new_ver2/forward_active.png'
 STOP_ACTIVE    = './img/new_ver2/stop_active.png'
 
+NUMBER_1 = './img/number/number_1.png'
+NUMBER_2 = './img/number/number_2.png'
+NUMBER_3 = './img/number/number_3.png'
+NUMBER_4 = './img/number/number_4.png'
+NUMBER_5 = './img/number/number_5.png'
+NUMBER_6 = './img/number/number_6.png'
+NUMBER_7 = './img/number/number_7.png'
+NUMBER_8 = './img/number/number_8.png'
+NUMBER_9 = './img/number/number_9.png'
+
 #変数
 BUTTON_SIZE = 250
 HOVER_TIME  = 1#滞留時間s
@@ -40,7 +50,7 @@ COMMAND_PORT = 12345
 CONFIG_PORT = 65432
 OBJECT_PORT  = 50000
 STATE_PORT   = 50010
-CAM_ID_1 = 1
+CAM_ID_1 = 0
 CAM_ID_2 = 2
 CONFIG_PATH = './config.txt'
 #本番用

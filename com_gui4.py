@@ -27,7 +27,10 @@ class BaseButton:
     '''
     ボタンの基底クラス
     '''
-    def __init__(self, canvas:tk.Canvas, img_path:str, active_path:str, lock_path:str, attention_path:str, area:tuple[float, float, float, float], cmd:str):
+    def __init__(self, canvas:tk.Canvas, 
+        img_path:str, active_path:str, lock_path:str, attention_path:str, 
+        area:tuple[float, float, float, float], cmd:str
+        ):
         '''
         canvas        : キャンバス
         img_path      : デフォルト画像パス

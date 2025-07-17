@@ -1,4 +1,7 @@
 # コマンドを受信するテストサーバー
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))#親ディレクトリの絶対パスを追加
 import socket
 import threading
 import time, pickle
